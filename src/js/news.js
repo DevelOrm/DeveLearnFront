@@ -1,5 +1,5 @@
 const resultsContainer = $("#results");
-const paginationContainer = $("#pagination");
+const paginationContainer = $(".pagination");
 const searchBtn = $("#searchBtn");
 const SearchURL = "http://127.0.0.1:8000/news/search/";
 
@@ -23,7 +23,7 @@ function NewsListAPI() {
     // Pagination 처리
     const pageCount = Math.ceil(data.count / data.page_size);
     for (let i = 1; i <= pageCount; i++) {
-      paginationContainer.append(`<button class="btn btn-link" onclick="paginate(${i})">${i}</button>`);
+      paginationContainer.append(`<li class="page-item"><button class="page-link" onclick="paginate(${i})">${i}</button></li>`);
     }
   });
 }
