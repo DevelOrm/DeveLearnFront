@@ -17,7 +17,7 @@ function NewsListAPI() {
   $.get(`${SearchURL}?q=${keyword}`, function (data) {
     const results = data.results;
     for (const result of results) {
-      resultsContainer.append(`<li><a href='${result.link}'>${result.title}</a><li>`);
+      resultsContainer.append(`<a href='${result.link}' class="mb-4 list-group-item list-group-item-action list-group-item-success">${result.title}</a>`);
     }
 
     // Pagination 처리
@@ -37,7 +37,7 @@ function paginate(page) {
   $.get(`${SearchURL}?q=${keyword}&page=${page}`, function (data) {
     const results = data.results;
     for (const result of results) {
-      resultsContainer.append(`<li><a href='${result.link}'>${result.title}</a><li>`);
+      resultsContainer.append(`<a href='${result.link}' class="mb-4 list-group-item list-group-item-action list-group-item-success">${result.title}</a>`);
     }
   });
 }
