@@ -1,2 +1,0 @@
-# DeveLearnFront
-DeveLearnFront
