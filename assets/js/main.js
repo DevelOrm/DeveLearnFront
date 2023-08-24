@@ -296,7 +296,7 @@ document.addEventListener("DOMContentLoaded", () => {
  * News 출력
  */
 
-const recentURL = "http://127.0.0.1:8000/news/recent/";
+const recentURL = "http://3.35.148.1:8000/news/recent/";
 const resultsContainer1 = $(".news-1");
 const resultsContainer2 = $(".news-2");
 
@@ -324,10 +324,6 @@ if (resultsContainer1 && resultsContainer2) {
               </article>
             </div>
       `);
-      }
-      for (const news of data) {
-        // resultsContainer.append(`<a href='${result.link}' class="mb-4 list-group-item list-group-item-action list-group-item-success">${result.title}</a>`);
-        console.log(news.title);
       }
     });
   });
