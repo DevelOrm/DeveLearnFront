@@ -1,12 +1,14 @@
 const resultsContainer = $("#results");
 const paginationContainer = $(".pagination");
 const searchBtn = $("#searchBtn");
-const SearchURL = "http://127.0.0.1:8000/news/search/";
+const SearchURL = "http://3.35.148.1:8000/news/search/";
 
-$(document).ready(function () {
-  searchBtn.click(NewsListAPI);
-  NewsListAPI();
-});
+if (searchBtn) {
+  $(document).ready(function () {
+    searchBtn.click(NewsListAPI);
+    NewsListAPI();
+  });
+}
 
 function NewsListAPI() {
   const keyword = $("#keyword").val();
