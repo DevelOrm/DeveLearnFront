@@ -1,10 +1,3 @@
-/**
- * Template Name: Impact
- * Updated: Jul 27 2023 with Bootstrap v5.3.1
- * Template URL: https://bootstrapmade.com/impact-bootstrap-business-website-template/
- * Author: BootstrapMade.com
- * License: https://bootstrapmade.com/license/
- */
 document.addEventListener("DOMContentLoaded", () => {
   "use strict";
 
@@ -239,44 +232,6 @@ document.addEventListener("DOMContentLoaded", () => {
   });
 
   /**
-   * Porfolio isotope and filter
-   */
-  let portfolionIsotope = document.querySelector(".portfolio-isotope");
-
-  if (portfolionIsotope) {
-    let portfolioFilter = portfolionIsotope.getAttribute("data-portfolio-filter") ? portfolionIsotope.getAttribute("data-portfolio-filter") : "*";
-    let portfolioLayout = portfolionIsotope.getAttribute("data-portfolio-layout") ? portfolionIsotope.getAttribute("data-portfolio-layout") : "masonry";
-    let portfolioSort = portfolionIsotope.getAttribute("data-portfolio-sort") ? portfolionIsotope.getAttribute("data-portfolio-sort") : "original-order";
-
-    window.addEventListener("load", () => {
-      let portfolioIsotope = new Isotope(document.querySelector(".portfolio-container"), {
-        itemSelector: ".portfolio-item",
-        layoutMode: portfolioLayout,
-        filter: portfolioFilter,
-        sortBy: portfolioSort,
-      });
-
-      let menuFilters = document.querySelectorAll(".portfolio-isotope .portfolio-flters li");
-      menuFilters.forEach(function (el) {
-        el.addEventListener(
-          "click",
-          function () {
-            document.querySelector(".portfolio-isotope .portfolio-flters .filter-active").classList.remove("filter-active");
-            this.classList.add("filter-active");
-            portfolioIsotope.arrange({
-              filter: this.getAttribute("data-filter"),
-            });
-            if (typeof aos_init === "function") {
-              aos_init();
-            }
-          },
-          false
-        );
-      });
-    });
-  }
-
-  /**
    * Animation on scroll function and init
    */
   function aos_init() {
@@ -292,17 +247,79 @@ document.addEventListener("DOMContentLoaded", () => {
   });
 });
 
+const recentURL = "http://3.37.187.68:8000/";
 /**
- * News 출력
+ * 이달의 클래스룸 출력
+ */
+const classroomContainer = $(".portfolio-container");
+if (classroomContainer) {
+  $(document).ready(function () {
+    $.get(`${recentURL}classroom/`, function (data) {
+      data.forEach((element) => {
+        const tag_list = element.tag.map((item) => "filter-" + item.toLowerCase()).join(" ");
+        classroomContainer.append(`
+        <div class="col-xl-4 col-md-6 portfolio-item ${tag_list}">
+          <div class="portfolio-wrap">
+            <!-- <a href="#" data-gallery="portfolio-gallery-app" class="glightbox"><img src="assets/img/portfolio/app-1.jpg" class="img-fluid" alt="" /></a> -->
+            <div class="portfolio-info">
+              <h4><a href="classroom-detail.html?pk=${element.id}" title="More Details">${element.class_name}</a></h4>
+              <p>${element.class_info}</p>
+              <p>${element.tag}</p>
+            </div>
+          </div>
+        </div>
+        `);
+      });
+    }).then((data) => {
+      /**
+       * Porfolio isotope and filter
+       */
+      let portfolionIsotope = document.querySelector(".portfolio-isotope");
+
+      if (portfolionIsotope) {
+        let portfolioFilter = portfolionIsotope.getAttribute("data-portfolio-filter") ? portfolionIsotope.getAttribute("data-portfolio-filter") : "*";
+        let portfolioLayout = portfolionIsotope.getAttribute("data-portfolio-layout") ? portfolionIsotope.getAttribute("data-portfolio-layout") : "masonry";
+        let portfolioSort = portfolionIsotope.getAttribute("data-portfolio-sort") ? portfolionIsotope.getAttribute("data-portfolio-sort") : "original-order";
+
+        let portfolioIsotope = new Isotope(document.querySelector(".portfolio-container"), {
+          itemSelector: ".portfolio-item",
+          layoutMode: portfolioLayout,
+          filter: portfolioFilter,
+          sortBy: portfolioSort,
+        });
+
+        let menuFilters = document.querySelectorAll(".portfolio-isotope .portfolio-flters li");
+        menuFilters.forEach(function (el) {
+          el.addEventListener(
+            "click",
+            function () {
+              document.querySelector(".portfolio-isotope .portfolio-flters .filter-active").classList.remove("filter-active");
+              this.classList.add("filter-active");
+              portfolioIsotope.arrange({
+                filter: this.getAttribute("data-filter"),
+              });
+              if (typeof aos_init === "function") {
+                aos_init();
+              }
+            },
+            false
+          );
+        });
+      }
+    });
+  });
+}
+
+/**
+ * 최근 개발자 뉴스 출력
  */
 
-const recentURL = "http://3.35.148.1:8000/news/recent/";
 const resultsContainer1 = $(".news-1");
 const resultsContainer2 = $(".news-2");
 
 if (resultsContainer1 && resultsContainer2) {
   $(document).ready(function () {
-    $.get(`${recentURL}`, function (data) {
+    $.get(`${recentURL}news/recent/`, function (data) {
       for (let index = 0; index < 3; index++) {
         resultsContainer1.append(`
       <div class="col-xl-4 col-md-6">
