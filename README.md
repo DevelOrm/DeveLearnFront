@@ -14,4 +14,12 @@ DeveLearnFront
 
 1.2.1.1 클래스룸 게시판 글 조회 -> post-detail.html
 
-## 2. 뉴스 목록
+## 2. 유저 페이지
+
+2.1 로그인 -> login.html
+
+2.2 회원가입 -> register.html
+
+## 3. 뉴스 목록
+
+3.1 전체 뉴스 목록 -> news.html
