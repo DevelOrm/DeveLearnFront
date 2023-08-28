@@ -345,3 +345,66 @@ if (resultsContainer1 && resultsContainer2) {
     });
   });
 }
+
+/**
+ * 로그인 정보 저장
+ */
+function setToken(access, refresh, username) {
+  document.cookie = `access=${access}; path=/`;
+  const expirationDate = new Date(); // 만료 날짜 설정
+  expirationDate.setDate(expirationDate.getDate() + 7); // 예: 7일 후 만료
+  document.cookie = `refresh=${refresh}; expires=${expirationDate.toUTCString()}; path=/`;
+  document.cookie = `username=${username}; expires=${expirationDate.toUTCString()}; path=/`;
+}
+
+function getCookie(cookieName) {
+  const cookies = document.cookie.split("; "); // 쿠키 문자열을 ';'와 공백으로 분리하여 배열로 만듦
+
+  for (const cookie of cookies) {
+    const [name, value] = cookie.split("="); // 쿠키를 이름과 값으로 분리
+    if (name === cookieName) {
+      return value; // 입력한 이름과 일치하는 쿠키의 값을 반환
+    }
+  }
+
+  return null; // 해당 이름의 쿠키가 없을 경우 null 반환
+}
+function deleteCookie(cookieName) {
+  // 현재 날짜를 이용하여 쿠키의 만료 시간을 설정
+  const pastDate = new Date(0);
+  document.cookie = `${cookieName}=; expires=${pastDate.toUTCString()}; path=/`;
+}
+
+function logout() {
+  deleteCookie("username");
+  deleteCookie("access");
+  deleteCookie("refresh");
+  window.location.href = "index.html";
+}
+
+/**
+ * 로그인 정보 출력
+ */
+const headerContainer = $(".header-container");
+const accessToken = getCookie("access");
+const refreshToken = getCookie("refresh");
+
+if (accessToken && refreshToken) {
+  headerContainer.append(`
+  <li class="dropdown">
+    <a href="#"><span>${getCookie("username")}</span> <i class="bi bi-chevron-down dropdown-indicator"></i></a>
+    <ul class="dropdown-menu">
+      <li><a href="#" class="dropdown-item">프로필</a></li>
+      <li><a href="#" class='logoutBtn dropdown-item'>로그아웃</a></li>
+    </ul>
+  </li>
+  `);
+  const logoutButton = $(".logoutBtn");
+  logoutButton.click(function () {
+    logout();
+  });
+} else {
+  headerContainer.append(`
+  <li><a href="login.html">로그인</a></li>
+  `);
+}
