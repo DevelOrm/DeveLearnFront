@@ -36,24 +36,21 @@
     <header id="header" class="header d-flex align-items-center">
       <div class="container-fluid container-xl d-flex align-items-center justify-content-between">
         <a href="index.html" class="logo d-flex align-items-center">
-          <!-- Uncomment the line below if you also wish to use an image logo -->
-          <!-- <img src="./assets/img/develearn_icon.png" alt="logo"> -->
           <h1>DeveLearn<span>.</span></h1>
         </a>
         <nav id="navbar" class="navbar">
-          <ul>
-            <li><a href="#hero">홈</a></li>
-            <li><a href="#services">서비스</a></li>
-            <li><a href="#portfolio">클래스룸</a></li>
-            <li><a href="#recent-posts">개발자 소식</a></li>
+          <ul class="header-container">
+            <li><a href="index.html#hero">홈</a></li>
+            <li><a href="index.html#portfolio">이달의 클래스룸</a></li>
+            <li><a href="#recent-posts">오늘의 개발자 소식</a></li>
             <li class="dropdown">
-              <a href="#header"><span>전체글 보기</span> <i class="bi bi-chevron-down dropdown-indicator"></i></a>
-              <ul>
-                <li><a href="classroom.html">클래스룸</a></li>
-                <li><a href="news.html">개발자 소식</a></li>
+              <a href="#"><span>전체 목록 보기</span> <i class="bi bi-chevron-down dropdown-indicator"></i></a>
+              <ul class="dropdown-menu">
+                <li><a href="classroom.html" class="dropdown-item">클래스룸</a></li>
+                <li><a href="news.html" class="dropdown-item">개발자 소식</a></li>
               </ul>
             </li>
-            <li><a href="login.html">로그인</a></li>
+            <!-- <li class="login-info"></li> -->
           </ul>
         </nav>
         <!-- .navbar -->
