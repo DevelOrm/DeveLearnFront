@@ -251,13 +251,13 @@ const recentURL = "http://3.37.187.68:8000/";
 /**
  * 이달의 클래스룸 출력
  */
-const classroomContainer = $(".portfolio-container");
+const classroomContainer = document.querySelector(".main-content");
 if (classroomContainer) {
   $(document).ready(function () {
     $.get(`${recentURL}classroom/`, function (data) {
       data.forEach((element) => {
         const tag_list = element.tag.map((item) => "filter-" + item.toLowerCase()).join(" ");
-        classroomContainer.append(`
+        classroomContainer.innerHTML = (`
         <div class="col-xl-4 col-md-6 portfolio-item ${tag_list}">
           <div class="portfolio-wrap">
             <!-- <a href="#" data-gallery="portfolio-gallery-app" class="glightbox"><img src="assets/img/portfolio/app-1.jpg" class="img-fluid" alt="" /></a> -->
@@ -314,8 +314,8 @@ if (classroomContainer) {
  * 최근 개발자 뉴스 출력
  */
 
-const resultsContainer1 = $(".news-1");
-const resultsContainer2 = $(".news-2");
+const resultsContainer1 = document.querySelector(".news-1");
+const resultsContainer2 = document.querySelector(".news-2");
 
 if (resultsContainer1 && resultsContainer2) {
   $(document).ready(function () {
@@ -385,12 +385,12 @@ function logout() {
 /**
  * 로그인 정보 출력
  */
-const headerContainer = $(".header-container");
+const headerContainer = document.querySelector(".header-container");
 const accessToken = getCookie("access");
 const refreshToken = getCookie("refresh");
 
 if (accessToken && refreshToken) {
-  headerContainer.append(`
+  headerContainer.innerHTML += (`
   <li class="dropdown">
     <a href="#"><span>${getCookie("username")}</span> <i class="bi bi-chevron-down dropdown-indicator"></i></a>
     <ul class="dropdown-menu">
@@ -399,12 +399,12 @@ if (accessToken && refreshToken) {
     </ul>
   </li>
   `);
-  const logoutButton = $(".logoutBtn");
+  const logoutButton = document.querySelector(".logoutBtn");
   logoutButton.click(function () {
     logout();
   });
 } else {
-  headerContainer.append(`
+  headerContainer.innerHTML += (`
   <li><a href="login.html">로그인</a></li>
   `);
 }
