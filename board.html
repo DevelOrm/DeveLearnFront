@@ -34,23 +34,21 @@
     <header id="header" class="header d-flex align-items-center">
       <div class="container-fluid container-xl d-flex align-items-center justify-content-between">
         <a href="index.html" class="logo d-flex align-items-center">
-          <!-- Uncomment the line below if you also wish to use an image logo -->
-          <!-- <img src="./assets/img/develearn_icon.png" alt="logo"> -->
           <h1>DeveLearn<span>.</span></h1>
         </a>
         <nav id="navbar" class="navbar">
-          <ul>
+          <ul class="header-container">
             <li><a href="index.html#hero">홈</a></li>
             <li><a href="index.html#portfolio">이달의 클래스룸</a></li>
             <li><a href="#recent-posts">오늘의 개발자 소식</a></li>
             <li class="dropdown">
               <a href="#"><span>전체 목록 보기</span> <i class="bi bi-chevron-down dropdown-indicator"></i></a>
-              <ul>
-                <li><a href="classroom.html">클래스룸</a></li>
-                <li><a href="news.html">개발자 소식</a></li>
+              <ul class="dropdown-menu">
+                <li><a href="classroom.html" class="dropdown-item">클래스룸</a></li>
+                <li><a href="news.html" class="dropdown-item">개발자 소식</a></li>
               </ul>
             </li>
-            <li><a href="login.html">로그인</a></li>
+            <!-- <li class="login-info"></li> -->
           </ul>
         </nav>
         <!-- .navbar -->
@@ -77,7 +75,8 @@
           <div class="container">
             <ol>
               <li><a href="index.html">홈</a></li>
-              <li>클래스룸 이름</li>
+              <li><a href="classroom.html">클래스룸</a></li>
+              <li class="classroom-name">클래스룸 이름</li>
             </ol>
           </div>
         </nav>
@@ -88,81 +87,6 @@
       <section id="blog" class="blog">
         <div class="container" data-aos="fade-up">
           <div class="row gy-4 posts-list">
-            <div class="col-xl-4 col-md-6">
-              <article>
-                <div class="post-img">
-                  <!-- <img src="assets/img/blog/blog-1.jpg" alt="" class="img-fluid" /> -->
-                </div>
-
-                <p class="post-category">강의자료 게시판</p>
-
-                <h2 class="title">
-                  <a href="board-detail.html">강의자료 게시판 설명</a>
-                </h2>
-
-                <div class="d-flex align-items-center">
-                  <img src="assets/img/blog/blog-author.jpg" alt="" class="img-fluid post-author-img flex-shrink-0" />
-                  <div class="post-meta">
-                    <p class="post-author-list">Maria Doe</p>
-                    <p class="post-date">
-                      <time datetime="2022-01-01">Jan 1, 2022</time>
-                    </p>
-                  </div>
-                </div>
-              </article>
-            </div>
-            <!-- End post list item -->
-
-            <div class="col-xl-4 col-md-6">
-              <article>
-                <div class="post-img">
-                  <!-- <img src="assets/img/blog/blog-2.jpg" alt="" class="img-fluid" /> -->
-                </div>
-
-                <p class="post-category">질문 게시판</p>
-
-                <h2 class="title">
-                  <a href="board-detail.html">질문 게시판 설명</a>
-                </h2>
-
-                <div class="d-flex align-items-center">
-                  <img src="assets/img/blog/blog-author-2.jpg" alt="" class="img-fluid post-author-img flex-shrink-0" />
-
-                  <div class="post-meta">
-                    <p class="post-author-list">Allisa Mayer</p>
-                    <p class="post-date">
-                      <time datetime="2022-01-01">Jun 5, 2022</time>
-                    </p>
-                  </div>
-                </div>
-              </article>
-            </div>
-            <!-- End post list item -->
-
-            <div class="col-xl-4 col-md-6">
-              <article>
-                <div class="post-img">
-                  <!-- <img src="assets/img/blog/blog-3.jpg" alt="" class="img-fluid" /> -->
-                </div>
-
-                <p class="post-category">문제 게시판</p>
-
-                <h2 class="title">
-                  <a href="board-detail.html">문제 게시판 설명</a>
-                </h2>
-
-                <div class="d-flex align-items-center">
-                  <img src="assets/img/blog/blog-author-3.jpg" alt="" class="img-fluid post-author-img flex-shrink-0" />
-                  <div class="post-meta">
-                    <p class="post-author-list">Mark Dower</p>
-                    <p class="post-date">
-                      <time datetime="2022-01-01">Jun 22, 2022</time>
-                    </p>
-                  </div>
-                </div>
-              </article>
-            </div>
-            <!-- End post list item -->
           </div>
           <!-- End blog posts list -->
         </div>
@@ -198,5 +122,6 @@
 
     <!-- Template Main JS File -->
     <script src="assets/js/main.js"></script>
+    <script type="module" src="assets/js/board.js"></script>
   </body>
 </html>

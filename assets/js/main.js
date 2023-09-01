@@ -1,10 +1,3 @@
-/**
- * Template Name: Impact
- * Updated: Jul 27 2023 with Bootstrap v5.3.1
- * Template URL: https://bootstrapmade.com/impact-bootstrap-business-website-template/
- * Author: BootstrapMade.com
- * License: https://bootstrapmade.com/license/
- */
 document.addEventListener("DOMContentLoaded", () => {
   "use strict";
 
@@ -239,44 +232,6 @@ document.addEventListener("DOMContentLoaded", () => {
   });
 
   /**
-   * Porfolio isotope and filter
-   */
-  let portfolionIsotope = document.querySelector(".portfolio-isotope");
-
-  if (portfolionIsotope) {
-    let portfolioFilter = portfolionIsotope.getAttribute("data-portfolio-filter") ? portfolionIsotope.getAttribute("data-portfolio-filter") : "*";
-    let portfolioLayout = portfolionIsotope.getAttribute("data-portfolio-layout") ? portfolionIsotope.getAttribute("data-portfolio-layout") : "masonry";
-    let portfolioSort = portfolionIsotope.getAttribute("data-portfolio-sort") ? portfolionIsotope.getAttribute("data-portfolio-sort") : "original-order";
-
-    window.addEventListener("load", () => {
-      let portfolioIsotope = new Isotope(document.querySelector(".portfolio-container"), {
-        itemSelector: ".portfolio-item",
-        layoutMode: portfolioLayout,
-        filter: portfolioFilter,
-        sortBy: portfolioSort,
-      });
-
-      let menuFilters = document.querySelectorAll(".portfolio-isotope .portfolio-flters li");
-      menuFilters.forEach(function (el) {
-        el.addEventListener(
-          "click",
-          function () {
-            document.querySelector(".portfolio-isotope .portfolio-flters .filter-active").classList.remove("filter-active");
-            this.classList.add("filter-active");
-            portfolioIsotope.arrange({
-              filter: this.getAttribute("data-filter"),
-            });
-            if (typeof aos_init === "function") {
-              aos_init();
-            }
-          },
-          false
-        );
-      });
-    });
-  }
-
-  /**
    * Animation on scroll function and init
    */
   function aos_init() {
@@ -292,39 +247,162 @@ document.addEventListener("DOMContentLoaded", () => {
   });
 });
 
+const serverURL = "http://3.37.187.68:8000/";
+
 /**
- * News 출력
+ * 이달의 클래스룸 출력
+ */
+const classroomContainer = document.querySelector(".portfolio-container");
+if (classroomContainer) {
+  document.addEventListener("DOMContentLoaded", function () {
+    fetch(`${serverURL}classroom/`)
+      .then((response) => response.json())
+      .then((data) => {
+        data.forEach((element) => {
+          const tag_list = element.tag.map((item) => "filter-" + item.toLowerCase()).join(" ");
+          classroomContainer.innerHTML += `
+                <div class="col-xl-4 col-md-6 portfolio-item ${tag_list}">
+                  <div class="portfolio-wrap">
+                    <div class="portfolio-info">
+                      <h4><a href="classroom-detail.html?pk=${element.id}" title="More Details">${element.class_name}</a></h4>
+                      <p>${element.class_info}</p>
+                      <p>${element.tag}</p>
+                    </div>
+                  </div>
+                </div>
+                `;
+        });
+
+        /**
+         * Porfolio isotope and filter
+         */
+        let portfolionIsotope = document.querySelector(".portfolio-isotope");
+
+        if (portfolionIsotope) {
+          let portfolioFilter = portfolionIsotope.getAttribute("data-portfolio-filter") ? portfolionIsotope.getAttribute("data-portfolio-filter") : "*";
+          let portfolioLayout = portfolionIsotope.getAttribute("data-portfolio-layout") ? portfolionIsotope.getAttribute("data-portfolio-layout") : "masonry";
+          let portfolioSort = portfolionIsotope.getAttribute("data-portfolio-sort") ? portfolionIsotope.getAttribute("data-portfolio-sort") : "original-order";
+
+          let portfolioIsotope = new Isotope(document.querySelector(".portfolio-container"), {
+            itemSelector: ".portfolio-item",
+            layoutMode: portfolioLayout,
+            filter: portfolioFilter,
+            sortBy: portfolioSort,
+          });
+
+          let menuFilters = document.querySelectorAll(".portfolio-isotope .portfolio-flters li");
+          menuFilters.forEach(function (el) {
+            el.addEventListener(
+              "click",
+              function () {
+                document.querySelector(".portfolio-isotope .portfolio-flters .filter-active").classList.remove("filter-active");
+                this.classList.add("filter-active");
+                portfolioIsotope.arrange({
+                  filter: this.getAttribute("data-filter"),
+                });
+                if (typeof aos_init === "function") {
+                  aos_init();
+                }
+              },
+              false
+            );
+          });
+        }
+      })
+      .catch((error) => {
+        console.error("Error fetching data:", error);
+      });
+  });
+}
+
+/**
+ * 최근 개발자 뉴스 출력
  */
 
-const recentURL = "http://3.35.148.1:8000/news/recent/";
-const resultsContainer1 = $(".news-1");
-const resultsContainer2 = $(".news-2");
+const newsContainer = document.querySelector(".news-container");
 
-if (resultsContainer1 && resultsContainer2) {
-  $(document).ready(function () {
-    $.get(`${recentURL}`, function (data) {
-      for (let index = 0; index < 3; index++) {
-        resultsContainer1.append(`
-      <div class="col-xl-4 col-md-6">
-              <article>
-                <h2 class="title">
-                  <a href="${data[index].link}">${data[index].title}</a>
-                </h2>
-              </article>
-            </div>
-      `);
-      }
-      for (let index = 3; index < 6; index++) {
-        resultsContainer2.append(`
-      <div class="col-xl-4 col-md-6">
-              <article>
-                <h2 class="title">
-                  <a href="${data[index].link}">${data[index].title}</a>
-                </h2>
-              </article>
-            </div>
-      `);
-      }
-    });
+if (newsContainer) {
+  document.addEventListener("DOMContentLoaded", function () {
+    fetch(`${serverURL}news/recent/`)
+      .then((response) => response.json())
+      .then((data) => {
+        for (let index = 0; index < 6; index++) {
+          newsContainer.innerHTML += `
+                    <div class="col-xl-4 col-md-6">
+                        <article>
+                            <h2 class="title">
+                                <a href="${data[index].link}">${data[index].title}</a>
+                            </h2>
+                        </article>
+                    </div>
+                    `;
+        }
+      })
+      .catch((error) => {
+        console.error("Error fetching data:", error);
+      });
   });
+}
+
+/**
+ * 로그인 정보 저장
+ */
+function setToken(access, refresh, username) {
+  document.cookie = `access=${access}; path=/`;
+  const expirationDate = new Date(); // 만료 날짜 설정
+  expirationDate.setDate(expirationDate.getDate() + 7); // 예: 7일 후 만료
+  document.cookie = `refresh=${refresh}; expires=${expirationDate.toUTCString()}; path=/`;
+  document.cookie = `username=${username}; expires=${expirationDate.toUTCString()}; path=/`;
+}
+
+function getCookie(cookieName) {
+  const cookies = document.cookie.split("; "); // 쿠키 문자열을 ';'와 공백으로 분리하여 배열로 만듦
+
+  for (const cookie of cookies) {
+    const [name, value] = cookie.split("="); // 쿠키를 이름과 값으로 분리
+    if (name === cookieName) {
+      return value; // 입력한 이름과 일치하는 쿠키의 값을 반환
+    }
+  }
+
+  return null; // 해당 이름의 쿠키가 없을 경우 null 반환
+}
+function deleteCookie(cookieName) {
+  // 현재 날짜를 이용하여 쿠키의 만료 시간을 설정
+  const pastDate = new Date(0);
+  document.cookie = `${cookieName}=; expires=${pastDate.toUTCString()}; path=/`;
+}
+
+function logout() {
+  deleteCookie("username");
+  deleteCookie("access");
+  deleteCookie("refresh");
+  window.location.href = "index.html";
+}
+
+/**
+ * 로그인 정보 출력
+ */
+const headerContainer = document.querySelector(".header-container");
+const accessToken = getCookie("access");
+const refreshToken = getCookie("refresh");
+
+if (accessToken && refreshToken) {
+  headerContainer.innerHTML += `
+  <li class="dropdown">
+    <a href="#"><span>${getCookie("username")}</span> <i class="bi bi-chevron-down dropdown-indicator"></i></a>
+    <ul class="dropdown-menu">
+      <li><a href="#" class="dropdown-item">프로필</a></li>
+      <li><a href="#" class='logoutBtn dropdown-item'>로그아웃</a></li>
+    </ul>
+  </li>
+  `;
+  const logoutButton = document.querySelector(".logoutBtn");
+  logoutButton.click(function () {
+    logout();
+  });
+} else {
+  headerContainer.innerHTML += `
+  <li><a href="login.html">로그인</a></li>
+  `;
 }

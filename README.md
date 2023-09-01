@@ -1,17 +1,7 @@
 # DeveLearnFront
 
-DeveLearnFront
+DeveLearn 프로젝트 프론트엔드 베포를 위한 레포지토리입니다
 
-# 메인 페이지
+- DeveLearn 백엔드 레포지토리 주소 : https://github.com/DevelOrm/DeveLearn
 
-## 1. 클래스룸 목록 -> classroom.html
-
-1.1 클래스룸 신청 (수강 전) -> classroom-detail.html
-
-1.2 클래스룸 게시판 목록 (수강 후) -> board.html
-
-1.2.1 클래스룸 게시판 글 목록 -> board-detail.html
-
-1.2.1.1 클래스룸 게시판 글 조회 -> post-detail.html
-
-## 2. 뉴스 목록
+- DeveLearn 서비스 베포 주소 : http://DeveLearn.co.kr
