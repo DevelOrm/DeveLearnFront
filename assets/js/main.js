@@ -247,66 +247,71 @@ document.addEventListener("DOMContentLoaded", () => {
   });
 });
 
-const recentURL = "http://3.37.187.68:8000/";
+const serverURL = "http://3.37.187.68:8000/";
+
 /**
  * 이달의 클래스룸 출력
  */
-const classroomContainer = document.querySelector(".main-content");
+const classroomContainer = document.querySelector(".portfolio-container");
 if (classroomContainer) {
-  $(document).ready(function () {
-    $.get(`${recentURL}classroom/`, function (data) {
-      data.forEach((element) => {
-        const tag_list = element.tag.map((item) => "filter-" + item.toLowerCase()).join(" ");
-        classroomContainer.innerHTML = (`
-        <div class="col-xl-4 col-md-6 portfolio-item ${tag_list}">
-          <div class="portfolio-wrap">
-            <!-- <a href="#" data-gallery="portfolio-gallery-app" class="glightbox"><img src="assets/img/portfolio/app-1.jpg" class="img-fluid" alt="" /></a> -->
-            <div class="portfolio-info">
-              <h4><a href="classroom-detail.html?pk=${element.id}" title="More Details">${element.class_name}</a></h4>
-              <p>${element.class_info}</p>
-              <p>${element.tag}</p>
-            </div>
-          </div>
-        </div>
-        `);
+  document.addEventListener("DOMContentLoaded", function () {
+    fetch(`${serverURL}classroom/`)
+      .then((response) => response.json())
+      .then((data) => {
+        data.forEach((element) => {
+          const tag_list = element.tag.map((item) => "filter-" + item.toLowerCase()).join(" ");
+          classroomContainer.innerHTML += `
+                <div class="col-xl-4 col-md-6 portfolio-item ${tag_list}">
+                  <div class="portfolio-wrap">
+                    <div class="portfolio-info">
+                      <h4><a href="classroom-detail.html?pk=${element.id}" title="More Details">${element.class_name}</a></h4>
+                      <p>${element.class_info}</p>
+                      <p>${element.tag}</p>
+                    </div>
+                  </div>
+                </div>
+                `;
+        });
+
+        /**
+         * Porfolio isotope and filter
+         */
+        let portfolionIsotope = document.querySelector(".portfolio-isotope");
+
+        if (portfolionIsotope) {
+          let portfolioFilter = portfolionIsotope.getAttribute("data-portfolio-filter") ? portfolionIsotope.getAttribute("data-portfolio-filter") : "*";
+          let portfolioLayout = portfolionIsotope.getAttribute("data-portfolio-layout") ? portfolionIsotope.getAttribute("data-portfolio-layout") : "masonry";
+          let portfolioSort = portfolionIsotope.getAttribute("data-portfolio-sort") ? portfolionIsotope.getAttribute("data-portfolio-sort") : "original-order";
+
+          let portfolioIsotope = new Isotope(document.querySelector(".portfolio-container"), {
+            itemSelector: ".portfolio-item",
+            layoutMode: portfolioLayout,
+            filter: portfolioFilter,
+            sortBy: portfolioSort,
+          });
+
+          let menuFilters = document.querySelectorAll(".portfolio-isotope .portfolio-flters li");
+          menuFilters.forEach(function (el) {
+            el.addEventListener(
+              "click",
+              function () {
+                document.querySelector(".portfolio-isotope .portfolio-flters .filter-active").classList.remove("filter-active");
+                this.classList.add("filter-active");
+                portfolioIsotope.arrange({
+                  filter: this.getAttribute("data-filter"),
+                });
+                if (typeof aos_init === "function") {
+                  aos_init();
+                }
+              },
+              false
+            );
+          });
+        }
+      })
+      .catch((error) => {
+        console.error("Error fetching data:", error);
       });
-    }).then((data) => {
-      /**
-       * Porfolio isotope and filter
-       */
-      let portfolionIsotope = document.querySelector(".portfolio-isotope");
-
-      if (portfolionIsotope) {
-        let portfolioFilter = portfolionIsotope.getAttribute("data-portfolio-filter") ? portfolionIsotope.getAttribute("data-portfolio-filter") : "*";
-        let portfolioLayout = portfolionIsotope.getAttribute("data-portfolio-layout") ? portfolionIsotope.getAttribute("data-portfolio-layout") : "masonry";
-        let portfolioSort = portfolionIsotope.getAttribute("data-portfolio-sort") ? portfolionIsotope.getAttribute("data-portfolio-sort") : "original-order";
-
-        let portfolioIsotope = new Isotope(document.querySelector(".portfolio-container"), {
-          itemSelector: ".portfolio-item",
-          layoutMode: portfolioLayout,
-          filter: portfolioFilter,
-          sortBy: portfolioSort,
-        });
-
-        let menuFilters = document.querySelectorAll(".portfolio-isotope .portfolio-flters li");
-        menuFilters.forEach(function (el) {
-          el.addEventListener(
-            "click",
-            function () {
-              document.querySelector(".portfolio-isotope .portfolio-flters .filter-active").classList.remove("filter-active");
-              this.classList.add("filter-active");
-              portfolioIsotope.arrange({
-                filter: this.getAttribute("data-filter"),
-              });
-              if (typeof aos_init === "function") {
-                aos_init();
-              }
-            },
-            false
-          );
-        });
-      }
-    });
   });
 }
 
@@ -314,35 +319,28 @@ if (classroomContainer) {
  * 최근 개발자 뉴스 출력
  */
 
-const resultsContainer1 = document.querySelector(".news-1");
-const resultsContainer2 = document.querySelector(".news-2");
+const newsContainer = document.querySelector(".news-container");
 
-if (resultsContainer1 && resultsContainer2) {
-  $(document).ready(function () {
-    $.get(`${recentURL}news/recent/`, function (data) {
-      for (let index = 0; index < 3; index++) {
-        resultsContainer1.append(`
-      <div class="col-xl-4 col-md-6">
-              <article>
-                <h2 class="title">
-                  <a href="${data[index].link}">${data[index].title}</a>
-                </h2>
-              </article>
-            </div>
-      `);
-      }
-      for (let index = 3; index < 6; index++) {
-        resultsContainer2.append(`
-      <div class="col-xl-4 col-md-6">
-              <article>
-                <h2 class="title">
-                  <a href="${data[index].link}">${data[index].title}</a>
-                </h2>
-              </article>
-            </div>
-      `);
-      }
-    });
+if (newsContainer) {
+  document.addEventListener("DOMContentLoaded", function () {
+    fetch(`${serverURL}news/recent/`)
+      .then((response) => response.json())
+      .then((data) => {
+        for (let index = 0; index < 6; index++) {
+          newsContainer.innerHTML += `
+                    <div class="col-xl-4 col-md-6">
+                        <article>
+                            <h2 class="title">
+                                <a href="${data[index].link}">${data[index].title}</a>
+                            </h2>
+                        </article>
+                    </div>
+                    `;
+        }
+      })
+      .catch((error) => {
+        console.error("Error fetching data:", error);
+      });
   });
 }
 
@@ -390,7 +388,7 @@ const accessToken = getCookie("access");
 const refreshToken = getCookie("refresh");
 
 if (accessToken && refreshToken) {
-  headerContainer.innerHTML += (`
+  headerContainer.innerHTML += `
   <li class="dropdown">
     <a href="#"><span>${getCookie("username")}</span> <i class="bi bi-chevron-down dropdown-indicator"></i></a>
     <ul class="dropdown-menu">
@@ -398,13 +396,13 @@ if (accessToken && refreshToken) {
       <li><a href="#" class='logoutBtn dropdown-item'>로그아웃</a></li>
     </ul>
   </li>
-  `);
+  `;
   const logoutButton = document.querySelector(".logoutBtn");
   logoutButton.click(function () {
     logout();
   });
 } else {
-  headerContainer.innerHTML += (`
+  headerContainer.innerHTML += `
   <li><a href="login.html">로그인</a></li>
-  `);
+  `;
 }
