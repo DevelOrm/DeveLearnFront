@@ -91,29 +91,34 @@
               <div class="card-body">
                 <form>
                   <div class="">
+                    <div class="alert alert-danger" id="loginAlert">
+                      로그인 실패. 아이디나 비밀번호를 다시 확인해주세요.
+                    </div>
                     <label for="username" class="form-label">아이디</label>
                     <input class="form-control" id="username" name="username">
+                    <p class="text-danger" id="usernameAlert">아이디를 입력해주세요</p>
                   </div>
                   <div class="">
                     <label for="password" class="form-label">비밀번호</label>
                     <input type="password" class="form-control" id="password" name="password">
+                    <p class="text-danger" id="passwordAlert">비밀번호를 입력해주세요</p>
                   </div>
                   <div>
-                    <button class="form-control mt-4 btn btn-primary" id='loginBtn'>로그인</button>
+                    <button class="form-control mt-4 btn btn-success" id='loginBtn'>로그인</button>
                   </div>
                   <div class="mt-4 text-center">
                     <a class="btn me-4" href="registration.html">회원가입</a>
-                    <a class="btn ms-4" href="">비밀번호 찾기</a>
+                    <a class="btn ms-4" href="password-reset.html">비밀번호 찾기</a>
                   </div>
                 </form>
               </div>
             </div>
             <div class="row justify-content-center mt-4">
-              <img src="./assets/img/naver_login_btn.png" style="width: 200px; height: 50px;" class="" type="submit"></img>
+              <img src="./assets/img/naver_login_btn.png" style="width: 200px; height: 60px;" class="btn" id="naverLogin"></img>
             </div>
           </div>
         </div>
-      </section>
+      </section>   
     </main>
     <!-- End #main -->
 
