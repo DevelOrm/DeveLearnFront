@@ -1,7 +1,10 @@
-const url = "http://3.37.187.68:8000";
+if (accessToken != null && refreshToken != null) {
+  window.location.href = "index.html";
+}
 
-const loginAPI = url +  "/user/login/"
-const socialLoginAPI = url + "/user/social/naver/"
+const url = "http://3.37.187.68:8000";
+const loginAPI = url +  "/user/login/";
+const socialLoginAPI = url + "/user/social/naver/";
 
 const $username = document.querySelector("#username");
 const $password = document.querySelector("#password");
