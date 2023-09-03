@@ -1,4 +1,4 @@
-export const serverURL = "http://3.37.187.68:8000/";
+export const serverURL = "http://develearn.co.kr/api/";
 
 export function getPKFromQuery(params) {
     const urlParams = new URLSearchParams(window.location.search);

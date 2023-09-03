@@ -1,4 +1,4 @@
-const url = "http://3.37.187.68:8000";
+const url = "http://develearn.co.kr/api";
 
 $(document).ready(function () {
   $("#loginButton").click(function () {
