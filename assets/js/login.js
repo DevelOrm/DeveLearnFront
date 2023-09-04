@@ -2,7 +2,7 @@ if (accessToken != null && refreshToken != null) {
   window.location.href = "index.html";
 }
 
-const url = "http://3.37.187.68:8000";
+const url = "http://52.79.53.117";
 const loginAPI = url +  "/user/login/";
 const socialLoginAPI = url + "/user/social/naver/";
 
