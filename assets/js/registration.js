@@ -2,7 +2,7 @@ if (accessToken != null && refreshToken != null) {
   window.location.href = "index.html";
 }
 
-const url = "http://127.0.0.1:8000";
+const url = "http://52.79.53.117";
 const registrationAPI = url +  "/user/registration/"
 const useridDuplicationAPI = url +  "/user/duplication/userid/"
 const emailDuplicationAPI = url +  "/user/duplication/email/"
