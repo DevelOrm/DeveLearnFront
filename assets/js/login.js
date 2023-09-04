@@ -54,7 +54,6 @@ $loginBtn.addEventListener("click", function(event) {
   })
     .then((res) => res.json())
     .then((res) => {
-      console.log(res)
       if (res.non_field_errors) {
         $loginAlert.style.display = "block";
       } else {

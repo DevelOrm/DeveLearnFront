@@ -1,4 +1,4 @@
-export const serverURL = "http://3.37.187.68:8000/";
+export const serverURL = "http://52.79.53.117/";
 
 export function getPKFromQuery(params) {
     const urlParams = new URLSearchParams(window.location.search);
