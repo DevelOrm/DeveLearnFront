@@ -2,7 +2,6 @@ import {getPKFromQuery} from "./utils.js"
 import {setName} from "./utils.js"
 import {setHref} from "./utils.js"
 import {serverURL} from "./utils.js"
-import {dateFormatting} from "./utils.js"
 
 document.addEventListener("DOMContentLoaded", function (event) {
     event.preventDefault()
@@ -80,7 +79,6 @@ createButton.addEventListener("click", function (event) {
       }
     }
 
-    // if (getPKFromQuery("board-type") === "test") {
       const solution = document.querySelector("#solution").value.split(',')
       const solutionArray = solution.map(solution => solution.trim())
       const autoScore = document.querySelector("#autoscore").value
@@ -92,9 +90,6 @@ createButton.addEventListener("click", function (event) {
       else {
         autoScoreValue = false
       }
-
-      console.log(title, content, solution, autoScoreValue, getPKFromQuery("board"), getPKFromQuery("board-type"))
-    // }
 
     fetch(`${serverURL}classroom/${getPKFromQuery("board-type")}/post/`, {
     method: "POST",
@@ -112,11 +107,9 @@ createButton.addEventListener("click", function (event) {
     })
     .then(response => response.json())
     .then(data => {
-      console.log(data)
       window.location.href = "post-list.html?classroom=2&board-type=test&board=2#"
     })
     .catch(error => {
-      console.error("Error creating lecture note:", error);
     });
     });
 });

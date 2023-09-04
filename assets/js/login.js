@@ -1,23 +1,78 @@
-const url = "http://127.0.0.1:8000/";
+if (accessToken != null && refreshToken != null) {
+  window.location.href = "index.html";
+}
 
-$(document).ready(function () {
-  $("#loginButton").click(function () {
-    const username = $("#username").val();
-    const password = $("#password").val();
+const url = "http://52.79.53.117";
+const loginAPI = url +  "/user/login/";
+const socialLoginAPI = url + "/user/social/naver/";
 
-    const userData = {
-      username: username,
-      password: password,
-    };
+const $username = document.querySelector("#username");
+const $password = document.querySelector("#password");
+const $loginBtn = document.querySelector("#loginBtn");
+const $naverLogin = document.querySelector("#naverLogin");
+const $loginAlert = document.querySelector("#loginAlert");
+const $usernameAlert = document.querySelector("#usernameAlert");
+const $passwordAlert = document.querySelector("#passwordAlert");
 
-    $.post(`${url}user/login/`, userData, function (data) {
-      try {
-        setToken(data.access, data.refresh, data.user["user_id"]);
-        alert("로그인 성공!");
+$usernameAlert.style.display = "none";
+$passwordAlert.style.display = "none";
+$loginAlert.style.display = "none";
+
+$loginBtn.addEventListener("click", function(event) {
+  event.preventDefault()
+  const usernameData = $username.value.toString();
+  const passwordData = $password.value.toString();
+
+  if (usernameData === "") {
+    $usernameAlert.style.display = "block";
+    if (passwordData === "") {
+      $passwordAlert.style.display = "block";
+    }
+    return
+  } else {
+    $usernameAlert.style.display = "none";
+  }
+
+  if (passwordData === "") {
+    $passwordAlert.style.display = "block";
+    return
+  } else {
+    $passwordAlert.style.display = "none";
+  }
+
+  const loginData = {
+    username: usernameData,
+    password: passwordData,
+  };
+
+  fetch(loginAPI, {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json",
+    },
+    body: JSON.stringify(loginData),
+  })
+    .then((res) => res.json())
+    .then((res) => {
+      if (res.non_field_errors) {
+        $loginAlert.style.display = "block";
+      } else {
+        setToken(res.access, res.refresh, res.user["user_id"]);
         window.location.href = "index.html";
-      } catch (error) {
-        alert("유저네임 또는 비밀번호가 틀렸습니다.");
       }
-    });
+    })
+    .catch((e) => {
+  });
+});
+
+$naverLogin.addEventListener("click", function(event) {
+  fetch(socialLoginAPI, {
+    method: "GET",
+  })
+    .then((res) => res)
+    .then((res) => {
+      console.log(res)
+    })
+    .catch((e) => {
   });
 });
