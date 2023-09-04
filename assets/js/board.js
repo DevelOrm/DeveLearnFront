@@ -27,7 +27,7 @@ document.addEventListener("DOMContentLoaded", function () {
           <div class="d-flex align-items-center">
             <img src="assets/img/blog/blog-author.jpg" alt="" class="img-fluid post-author-img flex-shrink-0" />
             <div class="post-meta">
-              <p class="post-author-list">${board.user}</p>
+              <p class="post-author-list">${board.user_nickname}</p>
               <p class="post-date">
                 <time datetime="2022-01-01">${board.created_at}</time>
               </p>

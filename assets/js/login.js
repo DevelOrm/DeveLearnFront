@@ -1,4 +1,4 @@
-const url = "http://52.79.53.117/";
+const url = "http://127.0.0.1:8000/";
 
 $(document).ready(function () {
   $("#loginButton").click(function () {

@@ -2,6 +2,7 @@ import {getPKFromQuery} from "./utils.js"
 import {setName} from "./utils.js"
 import {setHref} from "./utils.js"
 import {serverURL} from "./utils.js"
+import {dateFormatting} from "./utils.js"
 
 function getBoardTypeFromQuery() {
   const urlParams = new URLSearchParams(window.location.search);
@@ -23,10 +24,11 @@ fetch(`${serverURL}classroom/${getBoardTypeFromQuery("board-type")}/post/${getPK
       colDiv.className = "col-xl-12 col-md-6";
       colDiv.innerHTML = `
         <article>
-          <p class="post-category">${post.updated_at}</p>
+          <p class="post-category">${dateFormatting(post)}</p>
           <h2 class="title">
             <a href="post-detail.html?classroom=${getPKFromQuery("classroom")}&board=${getPKFromQuery("board")}&board-type=${getPKFromQuery("board-type")}&post=${post.id}">${post.title}</a>
           </h2>
+          <p>${post.content}</p>
         </article>
       `;
       postContainer.appendChild(colDiv)

@@ -1,6 +1,7 @@
 import {getPKFromQuery} from "./utils.js"
 import {setName} from "./utils.js"
 import {serverURL} from "./utils.js"
+import {dateFormatting} from "./utils.js"
 
 document.addEventListener("DOMContentLoaded", function () {
   fetch(`${serverURL}classroom/detail/${getPKFromQuery("pk")}/`)
@@ -23,7 +24,7 @@ document.addEventListener("DOMContentLoaded", function () {
                 <h3>상세 정보</h3>
                 <ul>
                   <li><strong>카테고리</strong> <span class="classroom-tag">${data.tag.join(" ")}</span></li>
-                  <li><strong>생성 날짜</strong> <span class="classroom-date">${data.created_at}</span></li>
+                  <li><strong>생성 날짜</strong> <span class="classroom-date">${dateFormatting(data)}</span></li>
                   <li><a href="#" class="btn-visit align-self-start">수강 신청</a></li>
                   <li><a href="board.html?classroom=${data.id}" class="board-list btn-visit align-self-start">학습 게시판</a></li>
                 </ul>

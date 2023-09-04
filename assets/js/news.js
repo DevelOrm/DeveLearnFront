@@ -1,7 +1,7 @@
 const resultsContainer = $("#results");
 const paginationContainer = $(".pagination");
 const searchBtn = $("#searchBtn");
-const SearchURL = "http://3.37.187.68:8000/news/search/";
+const SearchURL = "http://52.79.53.117/news/search/";
 
 if (searchBtn) {
   $(document).ready(function () {

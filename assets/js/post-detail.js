@@ -14,7 +14,7 @@ fetch(`${serverURL}classroom/${getPKFromQuery("board-type")}/post/detail/${getPK
   .then(response => response.json())
   .then(data => {
     setName(".classroom-title", data.title)
-    setName(".classroom-user", data.user)
+    setName(".classroom-user", data.user_nickname)
     setName(".classroom-date", dateFormatting(data))
     setName(".classroom-content", data.content)
     
@@ -41,7 +41,7 @@ fetch(`${serverURL}classroom/${getPKFromQuery("board-type")}/post/detail/${getPK
           
           myScore.innerHTML = `
             <div class="flex">
-              <h4 class="mb-3 text-center">${data[0].user}</h4>
+              <h4 class="mb-3 text-center">${data[0].user_nickname}</h4>
               <img src="assets/img/blog/blog-author.jpg" class="rounded-circle flex-shrink-0" alt="" />
             </div>
             <div>
@@ -125,7 +125,7 @@ document.addEventListener("DOMContentLoaded", function () {
                 <div class="comment-img"><img src="assets/img/blog/comments-1.jpg" alt="" /></div>
                 <div>
                   <h5>
-                    <a href="">${comment.user}</a>
+                    <a href="">${comment.user_nickname}</a>
                   </h5>
                   <time datetime="2020-01-01">${dateFormatting(comment)}</time>
                   <p>${comment.content}</p>

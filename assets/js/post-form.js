@@ -68,10 +68,6 @@ createButton.addEventListener("click", function (event) {
     const title = document.getElementById("title").value;
     const content = document.getElementById("content").value;
 
-    const formData = new FormData();
-    formData.append("title", title);
-    formData.append("content", content);
-
     if (getPKFromQuery("board-type") === "lecture_note") {
       const uploadFile = document.querySelector("#upload_file").files[0]
       const uploadImage = document.querySelector("#upload_image").files[0]
@@ -84,7 +80,7 @@ createButton.addEventListener("click", function (event) {
       }
     }
 
-    if (getPKFromQuery("board-type") === "test") {
+    // if (getPKFromQuery("board-type") === "test") {
       const solution = document.querySelector("#solution").value.split(',')
       const solutionArray = solution.map(solution => solution.trim())
       const autoScore = document.querySelector("#autoscore").value
@@ -98,25 +94,26 @@ createButton.addEventListener("click", function (event) {
       }
 
       console.log(title, content, solution, autoScoreValue, getPKFromQuery("board"), getPKFromQuery("board-type"))
+    // }
 
-      formData.append("solution", solutionArray);
-      formData.append("auto_score", autoScoreValue);
-    }
-    
-    formData.append("board", getPKFromQuery("board"))
-    console.log(formData)
-
-    fetch(`${serverURL}/classroom/${getPKFromQuery("board-type")}/post/`, {
+    fetch(`${serverURL}classroom/${getPKFromQuery("board-type")}/post/`, {
     method: "POST",
     headers: {
         "Authorization": `Bearer ${accessToken}`,
-        "enctype": "multipart/form-data"
+        "Content-Type": "application/json"
     },
-    body: formData
+    body: JSON.stringify({
+      "title": title,
+      "content": content,
+      "board": getPKFromQuery("board"),
+      "auto_score": autoScoreValue,
+      "solution": solutionArray
+    })
     })
     .then(response => response.json())
     .then(data => {
       console.log(data)
+      window.location.href = "post-list.html?classroom=2&board-type=test&board=2#"
     })
     .catch(error => {
       console.error("Error creating lecture note:", error);
