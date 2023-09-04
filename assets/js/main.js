@@ -398,7 +398,7 @@ if (accessToken && refreshToken) {
   </li>
   `;
   const logoutButton = document.querySelector(".logoutBtn");
-  logoutButton.click(function () {
+  logoutButton.addEventListener("click", function () {
     logout();
   });
 } else {
