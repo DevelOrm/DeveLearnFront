@@ -2,15 +2,15 @@ import {getPKFromQuery} from "./utils.js"
 import {setName} from "./utils.js"
 import {setHref} from "./utils.js"
 import {serverURL} from "./utils.js"
+import {dateFormatting} from "./utils.js"
 
 function getBoardTypeFromQuery() {
   const urlParams = new URLSearchParams(window.location.search);
   return urlParams.get("board-type")
 }
 
-// getBoardTypeFromQuery()
 document.addEventListener("DOMContentLoaded", function () {
-fetch(`${serverURL}classroom/lecturenote/post/${getPKFromQuery("board")}/`, {
+fetch(`${serverURL}classroom/${getBoardTypeFromQuery("board-type")}/post/${getPKFromQuery("board")}/`, {
   method: "GET",
   headers: {
     "Authorization": `Bearer ${accessToken}`
@@ -18,41 +18,25 @@ fetch(`${serverURL}classroom/lecturenote/post/${getPKFromQuery("board")}/`, {
 })
   .then(response => response.json())
   .then(data => {
-    console.log(getPKFromQuery("board-type"))
     const postContainer = document.querySelector(".posts-list");
     data.forEach(post => {
       const colDiv = document.createElement("div");
       colDiv.className = "col-xl-12 col-md-6";
       colDiv.innerHTML = `
         <article>
-          <p class="post-category">${post.updated_at}</p>
+          <p class="post-category">${dateFormatting(post)}</p>
           <h2 class="title">
-            <a href="post-detail.html?post=${post.board}">${post.title}</a>
+            <a href="post-detail.html?classroom=${getPKFromQuery("classroom")}&board=${getPKFromQuery("board")}&board-type=${getPKFromQuery("board-type")}&post=${post.id}">${post.title}</a>
           </h2>
+          <p>${post.content}</p>
         </article>
       `;
       postContainer.appendChild(colDiv)
+
+      setHref(".write-post", `post-form.html?classroom=${getPKFromQuery("classroom")}&board-type=${getPKFromQuery("board-type")}&board=${getPKFromQuery("board")}`);
     });
   })
   .catch(error => {
   console.error("Error fetching data:", error);
   });
 });
-
-document.addEventListener("DOMContentLoaded", function () {
-  fetch(`${serverURL}classroom/detail/${getPKFromQuery("classroom")}/`, {
-    method: "GET",
-    headers: {
-      "Authorization": `Bearer ${accessToken}`
-  }
-  })
-  .then(response => response.json())
-  .then(data => {
-    setName(".classroom-name", data.class_name);
-    setHref(".classroom-name", `http://127.0.0.1:50744/board.html?classroom/detail/${data.id}/`)
-  })
-  .catch(error => {
-  console.error("Error fetching data:", error);
-  });
-});
-  
