@@ -1,7 +1,7 @@
 const resultsContainer = $("#results");
 const paginationContainer = $(".pagination");
 const searchBtn = $("#searchBtn");
-const SearchURL = "http://develearn.co.kr/api/news/search/";
+const SearchURL = "http://52.79.53.117/news/search/";
 
 if (searchBtn) {
   $(document).ready(function () {

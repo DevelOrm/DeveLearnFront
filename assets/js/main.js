@@ -247,7 +247,7 @@ document.addEventListener("DOMContentLoaded", () => {
   });
 });
 
-const serverURL = "http://develearn.co.kr/api/";
+const serverURL = "http://52.79.53.117/";
 
 /**
  * 이달의 클래스룸 출력

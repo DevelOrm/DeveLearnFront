@@ -1,4 +1,4 @@
-const boardURL = "http://develearn.co.kr/api/";
+const boardURL = "http://52.79.53.117/";
 const classroomNames = document.querySelectorAll(".classroom-name");
 
 document.addEventListener("DOMContentLoaded", function () {

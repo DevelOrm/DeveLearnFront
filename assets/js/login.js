@@ -1,4 +1,4 @@
-const url = "http://develearn.co.kr/api";
+const url = "http://52.79.53.117";
 
 $(document).ready(function () {
   $("#loginButton").click(function () {
