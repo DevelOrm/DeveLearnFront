@@ -3,7 +3,7 @@ import {setName} from "./utils.js"
 import {serverURL} from "./utils.js"
 
 document.addEventListener("DOMContentLoaded", function () {
-  fetch(`${serverURL}classroom/board?classroom=${getPKFromQuery()}`, {
+  fetch(`${serverURL}classroom/board?classroom=${getPKFromQuery()}/`, {
     method: "GET",
     headers: {
       "Authorization": `Bearer ${accessToken}`
@@ -11,6 +11,7 @@ document.addEventListener("DOMContentLoaded", function () {
   })
   .then(response => response.json())
   .then(data => {
+    console.log(data[0])
     const boardContainer = document.querySelector(".posts-list");
     data.forEach(board => {
       const colDiv = document.createElement("div");
@@ -26,7 +27,7 @@ document.addEventListener("DOMContentLoaded", function () {
           <div class="d-flex align-items-center">
             <img src="assets/img/blog/blog-author.jpg" alt="" class="img-fluid post-author-img flex-shrink-0" />
             <div class="post-meta">
-              <p class="post-author-list">${board.user}</p>
+              <p class="post-author-list">${board.user_nickname}</p>
               <p class="post-date">
                 <time datetime="2022-01-01">${board.created_at}</time>
               </p>

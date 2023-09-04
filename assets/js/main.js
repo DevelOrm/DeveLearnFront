@@ -247,7 +247,7 @@ document.addEventListener("DOMContentLoaded", () => {
   });
 });
 
-const serverURL = "http://3.37.187.68:8000/";
+const serverURL = "http://52.79.53.117/";
 
 /**
  * 이달의 클래스룸 출력
@@ -392,8 +392,8 @@ if (accessToken && refreshToken) {
   <li class="dropdown">
     <a href="#"><span>${getCookie("username")}</span> <i class="bi bi-chevron-down dropdown-indicator"></i></a>
     <ul class="dropdown-menu">
-      <li><a href="#" class="dropdown-item">프로필</a></li>
-      <li><a href="#" class='logoutBtn dropdown-item'>로그아웃</a></li>
+      <li><a href="profile.html" class="dropdown-item">프로필</a></li>
+      <li><a href="index.html" class='logoutBtn dropdown-item'>로그아웃</a></li>
     </ul>
   </li>
   `;
@@ -404,5 +404,5 @@ if (accessToken && refreshToken) {
 } else {
   headerContainer.innerHTML += `
   <li><a href="login.html">로그인</a></li>
-  `;
+  `);
 }

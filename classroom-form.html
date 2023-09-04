@@ -66,7 +66,7 @@
           <div class="container position-relative">
             <div class="row d-flex justify-content-center">
               <div class="col-lg-6 text-center">
-                <h2 class="classroom-name">"클래스룸 이름"의 "OO" 게시판</h2>
+                <h2 class="classroom-name">DeveLearn</h2>
               </div>
             </div>
           </div>
@@ -75,9 +75,6 @@
           <div class="container">
             <ol>
               <li><a href="index.html">홈</a></li>
-              <li><a href="classroom.html" class="classroom-list">클래스룸</a></li>
-              <li><a href="board.html" class="classroom-name">클래스룸 이름</a></li>
-              <li><a href="post-list.html" class="board-name">게시글 이름</a></li>
             </ol>
           </div>
         </nav>
@@ -87,10 +84,20 @@
       <!-- ======= Blog Section ======= -->
       <section id="blog" class="blog">
         <div class="container" data-aos="fade-up">
-          <a href="#" class="write-post">글쓰기</a>
-          <div class="row gy-4 posts-list">
-          </div>
-          <!-- End blog posts list -->
+          <h1>클래스룸 만들기</h1>
+
+          <form id="create-lecture-note-form">
+            <label for="title">Title:</label>
+            <input type="text" id="title" name="title" required><br>
+        
+            <label for="content">Content:</label><br>
+            <textarea id="content" name="content" rows="4" cols="50" required></textarea><br>
+
+            <label for="tags">Tags:</label><br>
+            <input id="tags" name="tags" rows="4" cols="50" required><br>
+
+            <button type="button" id="create-button">Create</button>
+          </form>
         </div>
       </section>
     </main>
@@ -124,7 +131,6 @@
 
     <!-- Template Main JS File -->
     <script src="assets/js/main.js"></script>
-    <script type="module" src="assets/js/post-list.js"></script>
-    <script type="module" src="assets/js/title-name.js"></script>
+    <script type="module" src="assets/js/classroom-form.js"></script>
   </body>
 </html>
