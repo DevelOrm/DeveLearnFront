@@ -404,5 +404,5 @@ if (accessToken && refreshToken) {
 } else {
   headerContainer.innerHTML += `
   <li><a href="login.html">로그인</a></li>
-  `);
+  `;
 }
