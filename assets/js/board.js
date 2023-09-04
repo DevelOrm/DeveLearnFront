@@ -3,7 +3,7 @@ import {setName} from "./utils.js"
 import {serverURL} from "./utils.js"
 
 document.addEventListener("DOMContentLoaded", function () {
-  fetch(`${serverURL}classroom/board?classroom=${getPKFromQuery()}`, {
+  fetch(`${serverURL}classroom/board?classroom=${getPKFromQuery()}/`, {
     method: "GET",
     headers: {
       "Authorization": `Bearer ${accessToken}`
@@ -11,6 +11,7 @@ document.addEventListener("DOMContentLoaded", function () {
   })
   .then(response => response.json())
   .then(data => {
+    console.log(data[0])
     const boardContainer = document.querySelector(".posts-list");
     data.forEach(board => {
       const colDiv = document.createElement("div");

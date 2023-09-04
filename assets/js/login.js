@@ -1,4 +1,4 @@
-const url = "http://3.37.187.68:8000";
+const url = "http://52.79.53.117/";
 
 $(document).ready(function () {
   $("#loginButton").click(function () {
@@ -10,7 +10,7 @@ $(document).ready(function () {
       password: password,
     };
 
-    $.post(`${url}/user/login/`, userData, function (data) {
+    $.post(`${url}user/login/`, userData, function (data) {
       try {
         setToken(data.access, data.refresh, data.user["user_id"]);
         alert("로그인 성공!");
